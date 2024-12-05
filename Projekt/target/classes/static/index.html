@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prijava kvara</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="index.css" rel="stylesheet">
+</head>
+<body>
+<form action="/problems/add" method="post">
+  <fieldset>
+    <legend>Prijava kvara</legend>
+    <div>
+      <label for="name">Ime i Prezime</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+      <label for="adresa">Adresa</label>
+      <input type="text" id="adresa" name="adress" required>
+    </div>
+    <div>
+      <label for="telefon">Telefon</label>
+      <input type="text" id="telefon" name="phoneNumber">
+    </div>
+    <div>
+      <textarea id="opis" name="description" rows="4" cols="50" placeholder="Kratki opis problema"></textarea>
+    </div>
+    <div>
+      <button type="submit">Predaj</button>
+    </div>
+  </fieldset>
+</form>
+
+
+</body>
+</html>
