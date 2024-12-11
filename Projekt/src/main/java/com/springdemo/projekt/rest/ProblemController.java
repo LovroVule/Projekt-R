@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 
@@ -32,10 +34,10 @@ public class ProblemController {
         problem.setAdress(adress);
         problem.setPhoneNumber(phoneNumber != null ? phoneNumber : "Nepoznato");
         problem.setDescription(description != null ? description : "Nepoznato");
-
+        problem.setCreatedOn(Timestamp.from(Instant.now()));
         problemService.createProblem(problem);
 
-        return "redirect:/predaja.html"; // Preusmeravanje na statičku stranicu
+        return "redirect:/predaja.html";
 
     }
 

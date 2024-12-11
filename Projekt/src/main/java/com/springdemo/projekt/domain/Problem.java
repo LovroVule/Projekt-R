@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 
+import java.sql.Timestamp;
+
 @Entity
 public class Problem {
 
@@ -21,6 +23,16 @@ public class Problem {
     private String phoneNumber;
 
     private String description;
+
+    private Timestamp createdOn;
+
+    public Timestamp getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Timestamp createdOn) {
+        this.createdOn = createdOn;
+    }
 
     public String getAdress() {
         return adress;
@@ -62,6 +74,7 @@ public class Problem {
                 ", adress='" + adress + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", description='" + description + '\'' +
+                ", createdOn=" + createdOn +
                 '}';
     }
 }
