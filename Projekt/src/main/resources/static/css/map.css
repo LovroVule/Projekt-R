@@ -1,0 +1,9 @@
+#map {
+    width: 100%;
+    max-width: 800px; /* Postavi maksimalnu širinu mape */
+    height: 500px; /* Visina mape */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Razmak ispod mape */
+    justify-self: center;
+}

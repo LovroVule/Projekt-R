@@ -1,0 +1,22 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 50px;
+    background-color: #f4f4f9;
+    color: #5e60ce;
+}
+h1 {
+    font-size: 2rem;
+}
+p {
+    font-size: 1.2rem;
+}
+a {
+    text-decoration: none;
+    color: #4a4ef1;
+    font-weight: bold;
+}
+a:hover {
+    text-decoration: underline;
+}
