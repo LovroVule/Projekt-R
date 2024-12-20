@@ -8,4 +8,6 @@ public interface ProblemService {
     List<Problem> listAll();
     Problem createProblem(Problem problem);
     Problem findProblemByAdress(String adress);
+    List<Problem> findNotWorking();
+    List<Problem> findWorking();
 }

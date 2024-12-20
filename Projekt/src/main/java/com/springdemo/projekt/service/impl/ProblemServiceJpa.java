@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class ProblemServiceJpa implements ProblemService {
@@ -34,5 +36,15 @@ public class ProblemServiceJpa implements ProblemService {
             }
         }
         return null;
+    }
+
+    @Override
+    public List<Problem> findNotWorking() {
+        return problemRepository.findAll().stream().filter(problem -> Objects.equals(problem.getStatus(), "0")).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Problem> findWorking() {
+        return problemRepository.findAll().stream().filter(problem -> Objects.equals(problem.getStatus(), "1")).collect(Collectors.toList());
     }
 }

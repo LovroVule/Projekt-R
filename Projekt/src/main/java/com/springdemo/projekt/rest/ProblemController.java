@@ -23,6 +23,12 @@ public class ProblemController {
         return problemService.listAll();
     }
 
+    @GetMapping("/notWorking")
+    public List<Problem> listNotWorking() {return problemService.findNotWorking();}
+
+    @GetMapping("/working")
+    public List<Problem> listWorking() {return problemService.findWorking();}
+
 
     @PostMapping("/add") // Za korisnika koji prijavljuje kvar
     public void createProblem(@RequestParam String name,
@@ -54,17 +60,19 @@ public class ProblemController {
     {
         Problem b = problemService.findProblemByAdress(adresa);
         if(b == null) {
-            Problem problem = new Problem();
-            problem.setAdress(adresa);
-            problem.setCreatedOn(Timestamp.from(Instant.now()));
-            problem.setDescription("");
-            problem.setName("");
-            problem.setPhoneNumber("");
-            problem.setStatus("1");
-            problem.setUsage(usage);
-            problem.setWorkHours(workHours);
-            return problemService.createProblem(problem);}
-        else{
+            if(usage < 0 || workHours < 0){throw new IllegalArgumentException("Ne može biti negativno");
+            } else{
+                Problem problem = new Problem();
+                problem.setAdress(adresa);
+                problem.setCreatedOn(Timestamp.from(Instant.now()));
+                problem.setDescription("");
+                problem.setName("");
+                problem.setPhoneNumber("");
+                problem.setStatus("1");
+                problem.setUsage(usage);
+                problem.setWorkHours(workHours);
+                return problemService.createProblem(problem);}
+        } else{
             throw new RequestDeniedException("Ulična lampa već u sustavu");
         }
     }

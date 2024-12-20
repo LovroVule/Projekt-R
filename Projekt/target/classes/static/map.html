@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Karta kvarova</title>
+    <title>Admin panel</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="css/map.css">
 
@@ -30,6 +30,7 @@
                     <button type="submit">Predaj</button>
                 </div>
             </fieldset>
+        </form>
     </div>
 
 
@@ -50,7 +51,6 @@
             const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
 
             if (iframeDocument.body.innerHTML.trim().length > 0) {
-                // Ako server odgovori s nečim, osvježava se stranica
                 window.location.reload();
             }
         }
