@@ -24,4 +24,15 @@ public class ProblemServiceJpa implements ProblemService {
     public Problem createProblem(Problem problem) {
         return problemRepository.save(problem);
     }
+
+    @Override
+    public Problem findProblemByAdress(String adress) {
+        List<Problem> allProblems = problemRepository.findAll();
+        for (Problem problem : allProblems) {
+            if (problem.getAdress().equals(adress)) {
+                return problem;
+            }
+        }
+        return null;
+    }
 }

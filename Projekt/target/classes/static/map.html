@@ -2,15 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <title>Karta kvarova</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/map.css">
+
+
 </head>
+
 <body>
+    <div>
+        <form action="problems/addAdmin" method="post" target="hidden_iframe">
+            <fieldset>
+                <legend>Dodavanje nove ulične rasvjete</legend>
+                <div>
+                    <label for="adresa">Adresa:</label>
+                    <input type="text" id="adresa" name="adresa" required />
+                </div>
+                <div>
+                    <label for="usage">Potrošnja:</label>
+                    <input type="number" id="usage" name="usage" required />
+                </div>
+                <div>
+                    <label for="workHours">Radni sati:</label>
+                    <input type="number" id="workHours" name="workHours" />
+                </div>
+                <div>
+                    <button type="submit">Predaj</button>
+                </div>
+            </fieldset>
+    </div>
 
 
-  <div id="map" style="height: 500px; width: 100%; margin-top: 20px;"></div>
+    <div class="div_map">
+        <div id="map" style="height: 1000px; width: 100%;"></div>
+    </div>
+    <div class="div_list">
+        <ol></ol>
+    </div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="js/map.js"></script>
+    <iframe name="hidden_iframe" style="display: none;" onload="refreshPage()"></iframe>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/map.js"></script>
+    <script>
+        function refreshPage() {
+            // Provjera da li iframe sadrži odgovor servera
+            const iframe = document.querySelector('iframe[name="hidden_iframe"]');
+            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+            if (iframeDocument.body.innerHTML.trim().length > 0) {
+                // Ako server odgovori s nečim, osvježava se stranica
+                window.location.reload();
+            }
+        }
+    </script>
 </body>
 </html>
