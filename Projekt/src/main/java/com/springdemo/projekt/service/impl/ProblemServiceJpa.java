@@ -39,6 +39,11 @@ public class ProblemServiceJpa implements ProblemService {
     }
 
     @Override
+    public void deleteProblemById(Long id) {
+        problemRepository.deleteById(id);
+    }
+
+    @Override
     public List<Problem> findNotWorking() {
         return problemRepository.findAll().stream().filter(problem -> Objects.equals(problem.getStatus(), "0")).collect(Collectors.toList());
     }

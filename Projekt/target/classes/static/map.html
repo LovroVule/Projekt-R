@@ -38,8 +38,13 @@
         <div id="map" style="height: 1000px; width: 100%;"></div>
     </div>
     <div class="div_list">
-        <ol></ol>
+        <label>
+            <input type="checkbox" id="filterStatus" />
+            Prikaži samo ne radeće
+        </label>
+        <ol id="problemList"></ol>
     </div>
+
 
     <iframe name="hidden_iframe" style="display: none;" onload="refreshPage()"></iframe>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

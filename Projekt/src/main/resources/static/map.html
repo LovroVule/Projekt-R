@@ -24,7 +24,7 @@
                 </div>
                 <div>
                     <label for="workHours">Radni sati:</label>
-                    <input type="number" id="workHours" name="workHours" />
+                    <input type="number" id="workHours" name="workHours" required/>
                 </div>
                 <div>
                     <button type="submit">Predaj</button>
@@ -38,8 +38,13 @@
         <div id="map" style="height: 1000px; width: 100%;"></div>
     </div>
     <div class="div_list">
-        <ol></ol>
+        <label>
+            <input type="checkbox" id="filterStatus" />
+            Prikaži samo ne radeće
+        </label>
+        <ol id="problemList"></ol>
     </div>
+
 
     <iframe name="hidden_iframe" style="display: none;" onload="refreshPage()"></iframe>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

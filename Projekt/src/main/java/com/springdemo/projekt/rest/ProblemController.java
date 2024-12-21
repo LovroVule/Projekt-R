@@ -26,6 +26,9 @@ public class ProblemController {
     @GetMapping("/notWorking")
     public List<Problem> listNotWorking() {return problemService.findNotWorking();}
 
+    @GetMapping("/delete")
+    public void deleteProblem(@RequestParam long id) {problemService.deleteProblemById(id);}
+
     @GetMapping("/working")
     public List<Problem> listWorking() {return problemService.findWorking();}
 
