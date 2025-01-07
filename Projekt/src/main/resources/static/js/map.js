@@ -1,6 +1,6 @@
 let map;
 
-// funkcija za prikaz mape
+// Prikaz mape
 document.addEventListener("DOMContentLoaded", function () {
     map = L.map('map').setView([45.815399, 15.966568], 13); // Zagreb koordinate, default zoom 13
 
@@ -8,17 +8,16 @@ document.addEventListener("DOMContentLoaded", function () {
         maxZoom: 19,
         attribution: '© OpenStreetMap'
     }).addTo(map);
+
+    ispis(); // Prikaz markera odmah pri učitavanju
 });
+
 const problemList = document.getElementById("problemList");
 const filterStatusCheckbox = document.getElementById("filterStatus");
 
-
-
-// funkcija za dobivanje geo kordinata iz zadane adrese
+// Geo kodiranje adrese
 function geocodeAddress(address, callback) {
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
-    console.log(`Geocoding URL: ${url}`);
-
     fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -33,7 +32,7 @@ function geocodeAddress(address, callback) {
         .catch(error => console.error("Greška prilikom geokodiranja:", error));
 }
 
-// constom markeri koje ćemo prikazivati na mapi
+// Custom markeri
 const zeleniMarker = L.icon({
     iconUrl: '/images/zeleniMarker.png',
     iconSize: [32, 32],
@@ -48,90 +47,107 @@ const crveniMarker = L.icon({
     popupAnchor: [0, -32]
 });
 
-
-
-
-// dohvat problema i prikaz na karti
-
-function ispis(){
-
+// Dohvat problema i prikaz na mapi
+function ispis() {
     const allP = "/problems/all";
-    const notWorkingOnes = "/problems/notWorking"
+    const notWorkingOnes = "/problems/notWorking";
 
     const endPoint = filterStatusCheckbox.checked ? notWorkingOnes : allP;
 
-    fetch(endPoint).
-        then(response => {
-            if (!response.ok) {
-                throw new Error("Ne mogu naci");
-            }
+    // Očisti mapu i listu
+    map.eachLayer(layer => {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+
+    problemList.innerHTML = ""; // Očisti listu
+
+    fetch(endPoint)
+        .then(response => {
+            if (!response.ok) throw new Error("Ne mogu pronaći podatke.");
             return response.json();
-    }).then(data => {
+        })
+        .then(data => {
+            data.forEach(problem => {
+                const cityAdress = `${problem.adress}, Zagreb`; // Predrazuje samo adrese u Zagrebu
 
-        const listContainer = document.querySelector(".div_list ol"); // Odabir liste u HTML-u
-        data.forEach(problem => {
+                geocodeAddress(cityAdress, (latitude, longitude) => { // funkcija za dobivanje kordinate
+                    if (latitude && longitude) {                                       // iz adrese
+                        // Odabir markera
+                        const markerIcon = problem.status === "1" ? zeleniMarker : crveniMarker;
 
-            const cityAdress = `${problem.adress}, Zagreb`; // Samo adrese u Zgu => kasnije promijeniti
-            const listItem = document.createElement("li");
+                        // Dodavanje markera na mapu
 
-            map.eachLayer(layer => { // Čišćenje mapr prijašnjih markera
-                if (layer instanceof L.Marker) {
-                    map.removeLayer(layer);
-                }
-            });
-
-            problemList.innerHTML = ""; // Čićnje liste prijašnjih entrysa
-
-            geocodeAddress(cityAdress, (latitude, longitude) => { // Šaljemo adresu i dobivamo kordinate
-
-                if (latitude && longitude) {
-                    if (problem.status === "1") { // Ako je radi ispiši zeleni marker
-                        L.marker([latitude, longitude], {
-                            icon: zeleniMarker
-                        }).addTo(map)
-                            .bindPopup(`
+                        if(problem.status == "1"){
+                            L.marker([latitude, longitude], { icon: markerIcon })
+                                .addTo(map)
+                                .bindPopup(`
                                 <b>Adresa:</b> ${problem.adress}<br>
-                                <b>Korištenje (Usage):</b> ${problem.usage}<br>
-                                <b>Radni sati (Work Hours):</b> ${problem.workHours}<br>
-                           `)
-                            .openPopup();
+                                <b>Korištenje:</b> ${problem.usage}W<br>
+                                <b>Radni sati:</b> ${problem.workHours}H<br>
+                            `);
+                        }else {
+                            L.marker([latitude, longitude], { icon: markerIcon })
+                                .addTo(map)
+                                .bindPopup(`
+                                <b>Adresa:</b> ${problem.adress}<br>
+                                <b>Korištenje:</b> ${problem.usage}W<br>
+                                <b>Radni sati:</b> ${problem.workHours}H<br>
+                                <b>Opis:</b> ${problem.description}<br>
+                            `);
+                        }
 
-                        listItem.innerHTML = `
-                        <b>Adresa:</b> ${problem.adress}<br>
-                        <b>Korištenje (Usage):</b> ${problem.usage}W<br>
-                        <b>Radni sati (Work Hours):</b> ${problem.workHours}H<br>
-                        <b>Status:</b> Working <br>`
+                        // Dodavanje problema u listu
+                        const listItem = document.createElement("li");
 
-                    } else { // ako ne crveni
-                        L.marker([latitude, longitude], {
-                            icon: crveniMarker
-                        }).addTo(map)
-                            .bindPopup(`
+                        if(problem.status == "1"){
+                            listItem.innerHTML = `
                             <b>Adresa:</b> ${problem.adress}<br>
-                            <b>Korištenje (Usage):</b> ${problem.usage}<br>
-                            <b>Radni sati (Work Hours):</b> ${problem.workHours}<br>
-                            <b>Opis:</b> ${problem.description}
-                           `)
-                            .openPopup();
+                            <b>Korištenje:</b> ${problem.usage}W<br>
+                            <b>Radni sati:</b> ${problem.workHours}H<br>
+                            <b>Status:</b> Working <br>
+                            <img class="delete-icon" src="/images/x-mark.png" alt="Delete" title="Delete problem" />
+                        `;
+                        }else{
+                            listItem.innerHTML = `
+                            <b>Adresa:</b> ${problem.adress}<br>
+                            <b>Korištenje:</b> ${problem.usage}W<br>
+                            <b>Radni sati:</b> ${problem.workHours}H<br>
+                            <b>Status:</b> Out of order<br>
+                            <b>Opis:</b> ${problem.description}<br>
+                            <img class="delete-icon" src="/images/x-mark.png" alt="Delete" title="Delete problem" />
+                        `;
+                        }
 
-                        listItem.innerHTML = `
-                        <b>Adresa:</b> ${problem.adress}<br>
-                        <b>Korištenje (Usage):</b> ${problem.usage}W<br>
-                        <b>Radni sati (Work Hours):</b> ${problem.workHours}H<br>
-                        <b>Status:</b> Out of order <br>
-                        <b>Opis kvara:</b> ${problem.description}`
+                        // Dodavanje brisanja
+                        listItem.querySelector(".delete-icon").addEventListener("click", () => {
+                            if (confirm("Jeste li sigurni da želite obrisati ovaj problem?")) {
+                                fetch(`/problems/delete?adress=${problem.adress}`, { method: "DELETE" })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            listItem.remove(); // Uklanja element iz liste
+                                            alert("Problem uspješno obrisan.");
+                                            ispis(); // Ponovno učitavanje podataka
+                                        } else {
+                                            alert("Došlo je do pogreške prilikom brisanja problema.");
+                                        }
+                                    })
+                                    .catch(err => {
+                                        console.error("Greška prilikom brisanja problema:", err);
+                                        alert("Nije moguće obrisati problem.");
+                                    });
+                            }
+                        });
+                        problemList.appendChild(listItem);
+                    } else {
+                        console.warn(`Problem "${problem.description}" nije prikazan jer koordinate nisu pronađene.`);
                     }
-                    listContainer.appendChild(listItem);
-                } else {
-                    console.warn(`Problem "${problem.description}" nije prikazan jer koordinate nisu pronađene.`);
-                }
+                });
             });
-        });
-    })
-        .catch(error => console.error("Dohvat", error));
-
+        })
+        .catch(error => console.error("Greška prilikom dohvaćanja problema:", error));
 }
 
+// event listener za checkbox za ne radeće
 filterStatusCheckbox.addEventListener("change", ispis);
-
-ispis();

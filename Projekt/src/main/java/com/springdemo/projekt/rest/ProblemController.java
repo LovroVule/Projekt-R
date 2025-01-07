@@ -26,8 +26,17 @@ public class ProblemController {
     @GetMapping("/notWorking")
     public List<Problem> listNotWorking() {return problemService.findNotWorking();}
 
-    @GetMapping("/delete")
-    public void deleteProblem(@RequestParam long id) {problemService.deleteProblemById(id);}
+    @DeleteMapping("/delete")
+    public void deleteProblemByAdress(@RequestParam String adress) {
+       List<Problem> l = problemService.listAll();
+       for (Problem p : l) {
+           if(p.getAdress().equals(adress)) {
+               problemService.deleteProblemById(p.getId());
+               return;
+           }
+       }
+       throw new IllegalArgumentException("No problem found with address " + adress);
+    }
 
     @GetMapping("/working")
     public List<Problem> listWorking() {return problemService.findWorking();}

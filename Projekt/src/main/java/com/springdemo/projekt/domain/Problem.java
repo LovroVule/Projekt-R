@@ -40,6 +40,10 @@ public class Problem {
         return createdOn;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void setCreatedOn(Timestamp createdOn) {
         this.createdOn = createdOn;
     }

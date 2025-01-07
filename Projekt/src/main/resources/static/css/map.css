@@ -91,6 +91,24 @@ form button:hover {
     margin: 0;
 }
 
+.div_list li {
+    position: relative;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.div_list li .delete-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
 .div_list ol li {
     padding: 15px;
     margin: 10px 0;

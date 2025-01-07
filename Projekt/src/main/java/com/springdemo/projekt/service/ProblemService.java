@@ -10,7 +10,6 @@ public interface ProblemService {
     Problem createProblem(Problem problem);
     Problem findProblemByAdress(String adress);
     void deleteProblemById(Long id);
-
     List<Problem> findNotWorking();
     List<Problem> findWorking();
 }
