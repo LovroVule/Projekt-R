@@ -20,21 +20,6 @@ public class Problem {
     private String phoneNumber;
     private String description;
     private Timestamp createdOn;
-    private double usage; // potrošnja
-    private double workHours; // radni sati
-    private String status;
-
-    public double getUsage() {return usage;}
-
-    public void setUsage(double usage) {this.usage = usage;}
-
-    public double getWorkHours() {return workHours;}
-
-    public void setWorkHours(double workHours) {this.workHours = workHours;}
-
-    public String getStatus() {return status;}
-
-    public void setStatus(String status) {this.status = status;}
 
     public Timestamp getCreatedOn() {
         return createdOn;
@@ -88,10 +73,6 @@ public class Problem {
                 ", adress='" + adress + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", description='" + description + '\'' +
-                ", createdOn=" + createdOn +
-                ", usage=" + usage +
-                ", workHours=" + workHours +
-                ", status=" + status +
-                '}';
+                ", createdOn=" + createdOn;
     }
 }

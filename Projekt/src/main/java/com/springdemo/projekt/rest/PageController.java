@@ -12,5 +12,13 @@ public class PageController {
         return "map";
     }
 
+    @GetMapping("/index")
+    public String showAdminPage() {return "index";}
+
+    @GetMapping("/zahvala")
+    public String showUserPage() {
+        return "predaja";
+    }
+
 }
 
