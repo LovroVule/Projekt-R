@@ -1,6 +1,9 @@
 package com.springdemo.projekt.rest;
 
+import com.springdemo.projekt.dao.LampRepository;
+import com.springdemo.projekt.domain.Lamp;
 import com.springdemo.projekt.domain.Problem;
+import com.springdemo.projekt.service.LampService;
 import com.springdemo.projekt.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +17,16 @@ import java.util.List;
 public class LampController {
     @Autowired
     private ProblemService problemService;
+    @Autowired
+    private LampService lampService;
 
     @GetMapping("/all")
-    public List<Problem> listLamps() {
-        return problemService.listAll();
+    public List<Lamp> listLamps() {
+        return lampService.findAll();
     }
 
     @GetMapping("/notWorking")
-    public List<Problem> listNotWorking() {return problemService.findNotWorking();}
+    public List<Lamp> listNotWorking() {return lampService.findAllNonWorking();}
 
     @DeleteMapping("/delete")
     public void deleteLampByAdress(@RequestParam String adress) {
@@ -36,7 +41,7 @@ public class LampController {
     }
 
     @GetMapping("/working")
-    public List<Problem> listWorking() {return problemService.findWorking();}
+    public List<Lamp> listWorking() {return lampService.findAllWorking();}
 
 
     // dodavanje novih uličnih lampi u sustav (rade ispravno)(dodaje ih admin)
@@ -55,9 +60,6 @@ public class LampController {
                 problem.setDescription("");
                 problem.setName("");
                 problem.setPhoneNumber("");
-                problem.setStatus("1");
-                problem.setUsage(usage);
-                problem.setWorkHours(workHours);
                 return problemService.createProblem(problem);}
         } else{
             throw new RequestDeniedException("Ulična lampa već u sustavu");

@@ -1,36 +1,42 @@
 package com.springdemo.projekt.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Lamp {
+
     @Id
-    private Long LampId;
+    @GeneratedValue
+    private Long id;
     private Double usage;
     private Double workHours;
     private String addres;
+    private int status;
+
+    public int getStatus() {return status;}
+
+    public void setStatus(int status) {this.status = status;}
 
     @OneToOne(mappedBy = "lamp")
     private Location location;
 
-    @OneToMany(mappedBy = "lamp")
-    private Data_traffic data_traffic;
+    @OneToMany(mappedBy = "lamp", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Data_traffic> data_traffic = new ArrayList<Data_traffic>();
 
-    @OneToMany(mappedBy = "lamp")
-    private Data_people data_people;
+    @OneToMany(mappedBy = "lamp", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Data_people> data_people = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lamp")
-    private Data_weather data_weather;
+    @OneToMany(mappedBy = "lamp", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Data_weather> data_weather = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lamp")
-    private Data_dim data_dim;
+    @OneToMany(mappedBy = "lamp", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Data_dim> data_dim = new ArrayList<>();
 
-    public Long getLampId() {return LampId;}
+    public Long getLampId() {return id;}
 
-    public void setLampId(Long lampId) {LampId = lampId;}
 
     public Double getUsage() {return usage;}
 
@@ -47,7 +53,7 @@ public class Lamp {
     @Override
     public String toString() {
         return "Lamp{" +
-                "LampId=" + LampId +
+                "LampId=" + id +
                 ", usage=" + usage +
                 ", workHours=" + workHours +
                 ", addres='" + addres + '\'' +

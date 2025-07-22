@@ -35,7 +35,6 @@ public class ProblemController {
             problem.setAdress(adress);
             problem.setPhoneNumber(phoneNumber != null ? phoneNumber : "Nepoznato");
             problem.setDescription(description != null ? description : "Nepoznato");
-            problem.setStatus("0");
             problemService.createProblem(problem);
         }
     }
