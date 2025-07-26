@@ -1,0 +1,22 @@
+{
+  "groups": [
+    {
+      "name": "rsa",
+      "type": "com.springdemo.projekt.config.RsaKeyProperties",
+      "sourceType": "com.springdemo.projekt.config.RsaKeyProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "rsa.private-key",
+      "type": "java.security.interfaces.RSAPrivateKey",
+      "sourceType": "com.springdemo.projekt.config.RsaKeyProperties"
+    },
+    {
+      "name": "rsa.public-key",
+      "type": "java.security.interfaces.RSAPublicKey",
+      "sourceType": "com.springdemo.projekt.config.RsaKeyProperties"
+    }
+  ],
+  "hints": []
+}

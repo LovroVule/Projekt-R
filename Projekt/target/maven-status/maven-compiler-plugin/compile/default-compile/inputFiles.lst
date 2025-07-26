@@ -1,6 +1,27 @@
-C:\Users\Admin\Desktop\FER\5. semestar\Projekt\Projekt\src\main\java\com\springdemo\projekt\dao\ProblemRepository.java
-C:\Users\Admin\Desktop\FER\5. semestar\Projekt\Projekt\src\main\java\com\springdemo\projekt\domain\Problem.java
-C:\Users\Admin\Desktop\FER\5. semestar\Projekt\Projekt\src\main\java\com\springdemo\projekt\ProjektApplication.java
-C:\Users\Admin\Desktop\FER\5. semestar\Projekt\Projekt\src\main\java\com\springdemo\projekt\rest\ProblemController.java
-C:\Users\Admin\Desktop\FER\5. semestar\Projekt\Projekt\src\main\java\com\springdemo\projekt\service\impl\ProblemServiceJpa.java
-C:\Users\Admin\Desktop\FER\5. semestar\Projekt\Projekt\src\main\java\com\springdemo\projekt\service\ProblemService.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\config\RsaKeyProperties.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\config\SecurityConfig.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\dao\Data_dim_Repository.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\dao\Data_people_Repository.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\dao\Data_traffic_Repository.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\dao\Data_weather_Repository.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\dao\LampRepository.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\dao\ProblemRepository.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\domain\Admins.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\domain\Data_dim.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\domain\Data_people.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\domain\Data_traffic.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\domain\Data_weather.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\domain\Lamp.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\domain\Location.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\domain\Problem.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\ProjektApplication.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\rest\AuthControler.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\rest\LampController.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\rest\PageController.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\rest\ProblemController.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\rest\RequestDeniedException.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\service\impl\LampServiceJpa.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\service\impl\ProblemServiceJpa.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\service\impl\TokenService.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\service\LampService.java
+C:\Users\Admin\Desktop\zavrsni\Projekt\src\main\java\com\springdemo\projekt\service\ProblemService.java
