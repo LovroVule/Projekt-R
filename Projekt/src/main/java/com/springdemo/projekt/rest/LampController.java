@@ -6,10 +6,9 @@ import com.springdemo.projekt.domain.Problem;
 import com.springdemo.projekt.service.LampService;
 import com.springdemo.projekt.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
 
 @RestController
@@ -28,16 +27,10 @@ public class LampController {
     @GetMapping("/notWorking")
     public List<Lamp> listNotWorking() {return lampService.findAllNonWorking();}
 
-    @DeleteMapping("/delete")
-    public void deleteLampByAdress(@RequestParam String adress) {
-        List<Problem> l = problemService.listAll();
-        for (Problem p : l) {
-            if(p.getAdress().equals(adress)) {
-                problemService.deleteProblemById(p.getId());
-                return;
-            }
-        }
-        throw new IllegalArgumentException("No problem found with address " + adress);
+    @PostMapping("/delete")
+    public ResponseEntity<Void> deleteLamp(@RequestParam String addres) {
+        lampService.deleteByAddres(addres);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/working")
@@ -45,24 +38,9 @@ public class LampController {
 
 
     // dodavanje novih uličnih lampi u sustav (rade ispravno)(dodaje ih admin)
-    @PostMapping("/addAdmin")
-    public Problem createLamp(@RequestParam String adresa,
-                              @RequestParam Double usage,
-                              @RequestParam Double workHours)
-    {
-        Problem b = problemService.findProblemByAdress(adresa);
-        if(b == null) {
-            if(usage < 0 || workHours < 0){throw new IllegalArgumentException("Ne može biti negativno");
-            } else{
-                Problem problem = new Problem();
-                problem.setAdress(adresa);
-                problem.setCreatedOn(Timestamp.from(Instant.now()));
-                problem.setDescription("");
-                problem.setName("");
-                problem.setPhoneNumber("");
-                return problemService.createProblem(problem);}
-        } else{
-            throw new RequestDeniedException("Ulična lampa već u sustavu");
-        }
+    @PostMapping("/add/Lamp")
+    public void createLamp(@RequestBody Lamp lamp) {
+        lamp.setStatus(1);
+        lampService.save(lamp);
     }
 }

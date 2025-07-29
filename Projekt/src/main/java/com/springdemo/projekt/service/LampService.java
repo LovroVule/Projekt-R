@@ -14,13 +14,5 @@ public interface LampService {
     List<Lamp> findAllNonWorking();
     List<Lamp> findAllWorking();
 
-    void sava(Data_dim data_dim);
-    void save(Data_traffic data_traffic);
-    void save(Data_weather data_weather);
-    void save (Data_people data_people);
-
-    void delete(Data_dim data_dim);
-    void delete(Data_traffic data_traffic);
-    void delete(Data_weather data_weather);
-    void delete(Data_people data_people);
+    void deleteByAddres(String addres);
 }

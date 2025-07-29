@@ -1,5 +1,6 @@
 package com.springdemo.projekt.webtoken;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,4 +34,23 @@ public class JwtService {
     }
 
 
+    public String extractUsername(String jwt) {
+        Claims claims = getClaims(jwt);
+        return claims.getSubject();
+    }
+
+    private Claims getClaims(String jwt) {
+        Claims claims = Jwts
+                .parserBuilder()
+                .setSigningKey(generateKey())
+                .build()
+                .parseClaimsJws(jwt)
+                .getBody();
+        return claims;
+    }
+
+    public boolean isTokenValid(String jwt) {
+        Claims claims = getClaims(jwt);
+        return claims.getExpiration().after(Date.from(Instant.now()));
+    }
 }

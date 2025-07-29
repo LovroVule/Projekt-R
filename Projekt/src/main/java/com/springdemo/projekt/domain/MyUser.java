@@ -1,17 +1,18 @@
 package com.springdemo.projekt.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "Admins")
 public class MyUser {
 
     @Id
     @GeneratedValue
     private int id;
 
+    @Column(unique = true)
     private String username;
+
     private String password;
     private String role;
 

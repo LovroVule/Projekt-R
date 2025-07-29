@@ -6,14 +6,15 @@ import com.springdemo.projekt.domain.MyUser;
 import com.springdemo.projekt.service.impl.MyUserDetailService;
 import com.springdemo.projekt.webtoken.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class RegistrationController {
@@ -29,12 +30,6 @@ public class RegistrationController {
     @Autowired
     private MyUserDetailService myUserDetailService;
 
-    @PostMapping("/register/user")
-    public MyUser createUser(@RequestBody MyUser user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
-    }
-
     @PostMapping("/authenticate")
     public String authenticateAndGetToken(@RequestBody LoginForm loginForm) {
         Authentication authentication =  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
@@ -47,4 +42,23 @@ public class RegistrationController {
             throw new BadCredentialsException("Invalid username or password");
         }
     }
+
+    @PostMapping("/register/user")
+    public MyUser createUser(@RequestBody MyUser user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    @GetMapping("/getAll/users")
+    public List<MyUser> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @PostMapping("/delete/user")
+    public ResponseEntity<Void> deleteUser(@RequestParam String username)  {
+        userRepository.deleteByUsername(username);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

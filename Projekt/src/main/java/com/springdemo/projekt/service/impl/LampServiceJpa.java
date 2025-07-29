@@ -4,6 +4,7 @@ package com.springdemo.projekt.service.impl;
 import com.springdemo.projekt.dao.*;
 import com.springdemo.projekt.domain.*;
 import com.springdemo.projekt.service.LampService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,27 +50,9 @@ public class LampServiceJpa implements LampService {
     }
 
     @Override
-    public void sava(Data_dim data_dim) {data_dim_Repository.save(data_dim);}
-
-    @Override
-    public void save(Data_traffic data_traffic) {data_traffic_Repository.save(data_traffic);}
-
-    @Override
-    public void save(Data_weather data_weather) {data_weather_Repository.save(data_weather);}
-
-    @Override
-    public void save(Data_people data_people) {data_people_Repository.save(data_people);}
-
-    @Override
-    public void delete(Data_dim data_dim) {data_dim_Repository.delete(data_dim);}
-
-    @Override
-    public void delete(Data_traffic data_traffic) {data_traffic_Repository.delete(data_traffic);}
-
-    @Override
-    public void delete(Data_weather data_weather) {data_weather_Repository.delete(data_weather);}
-
-    @Override
-    public void delete(Data_people data_people) {data_people_Repository.delete(data_people);}
+    @Transactional
+    public void deleteByAddres(String addres) {
+        lampRepository.deleteByAddres(addres);
+    }
 
 }

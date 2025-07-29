@@ -11,9 +11,13 @@ public class Lamp {
     @Id
     @GeneratedValue
     private Long id;
+
     private Double usage;
     private Double workHours;
+
+    @Column(unique=true)
     private String addres;
+
     private int status;
 
     public int getStatus() {return status;}

@@ -5,18 +5,45 @@
     <title>Admin panel</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="css/map.css">
-
-
 </head>
-
 <body>
-    <div>
-        <form action="problems/addAdmin" method="post" target="hidden_iframe">
+<!-- Admin controls row: user panel and add-light form -->
+<div class="admin-row">
+    <!-- User management panel -->
+    <div class="user-panel">
+        <h3>Users</h3>
+        <ul id="userList"></ul>
+
+        <form id="addUserForm">
+            <fieldset>
+                <legend>Dodaj novog usera</legend>
+                <div>
+                    <label for="newUsername">Username:</label>
+                    <input type="text" id="newUsername" name="username" required />
+                </div>
+                <div>
+                    <label for="newPassword">Password:</label>
+                    <input type="password" id="newPassword" name="password" required />
+                </div>
+                <div>
+                    <label for="newRole">Role:</label>
+                    <input type="text" id="newRole" name="role" required />
+                </div>
+                <div>
+                    <button type="submit">Dodaj usera</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <!-- Form for adding street lights -->
+    <div class="form-panel">
+        <form id="addLampForm">
             <fieldset>
                 <legend>Dodavanje nove ulične rasvjete</legend>
                 <div>
                     <label for="adresa">Adresa:</label>
-                    <input type="text" id="adresa" name="adresa" required />
+                    <input type="text" id="adresa" name="adress" required />
                 </div>
                 <div>
                     <label for="usage">Potrošnja:</label>
@@ -24,7 +51,7 @@
                 </div>
                 <div>
                     <label for="workHours">Radni sati:</label>
-                    <input type="number" id="workHours" name="workHours" required/>
+                    <input type="number" id="workHours" name="workHours" required />
                 </div>
                 <div>
                     <button type="submit">Predaj</button>
@@ -32,34 +59,33 @@
             </fieldset>
         </form>
     </div>
+</div>
 
+<!-- Map and lamp list -->
+<div class="div_map">
+    <div id="map" style="height: 600px; width: 100%;"></div>
+</div>
 
-    <div class="div_map">
-        <div id="map" style="height: 1000px; width: 100%;"></div>
-    </div>
+<div class="div_list">
+    <label>
+        <input type="checkbox" id="filterStatus" />
+        Prikaži samo ne radeće
+    </label>
+    <ol id="problemList"></ol>
+</div>
 
-    <div class="div_list">
-        <label>
-            <input type="checkbox" id="filterStatus" />
-            Prikaži samo ne radeće
-        </label>
-        <ol id="problemList"></ol>
-    </div>
+<iframe name="hidden_iframe" style="display: none;" onload="refreshPage()"></iframe>
 
-
-    <iframe name="hidden_iframe" style="display: none;" onload="refreshPage()"></iframe>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="js/map.js"></script>
-    <script>
-        function refreshPage() {
-            // Provjera da li iframe sadrži odgovor servera
-            const iframe = document.querySelector('iframe[name="hidden_iframe"]');
-            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-
-            if (iframeDocument.body.innerHTML.trim().length > 0) {
-                window.location.reload();
-            }
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/map.js"></script>
+<script>
+    function refreshPage() {
+        const iframe = document.querySelector('iframe[name="hidden_iframe"]');
+        const doc = iframe.contentDocument || iframe.contentWindow.document;
+        if (doc.body.innerHTML.trim().length > 0) {
+            window.location.reload();
         }
-    </script>
+    }
+</script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.springdemo.projekt.configuration;
 
 import com.springdemo.projekt.service.impl.MyUserDetailService;
+import com.springdemo.projekt.webtoken.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -23,6 +25,8 @@ public class SecurityConfig {
 
     @Autowired
     MyUserDetailService userDetailsService;
+    @Autowired
+    JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -36,8 +40,13 @@ public class SecurityConfig {
                     auth.requestMatchers("/css/**", "/js/**", "/images/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                .formLogin(form -> form
+                        .defaultSuccessUrl("/map", true) // redirekt nakon uspješnog logina
+                        .permitAll()
+                )
+                //.formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
